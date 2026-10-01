@@ -1,0 +1,3 @@
+'use client';
+import {useEffect,useState} from 'react';import {supabase} from '../../lib/supabaseClient';
+export default function AppHome(){const[email,setEmail]=useState('');useEffect(()=>{supabase?.auth.getUser().then(({data})=>{if(!data.user)window.location.href='/';else setEmail(data.user.email||'')})},[]);async function logout(){await supabase?.auth.signOut();window.location.href='/'}return <main className="wrap"><section className="card"><h1>TradeSnap</h1><p className="muted">Signed in as {email}</p><p>Your secure TradeSnap workspace is ready.</p><button className="btn" onClick={logout}>Sign out</button></section></main>}
